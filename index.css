@@ -38,10 +38,10 @@ padding-top: 20px;
 .restaurant-card{
   
   
-    width:400px;
+    width:350px;
     background-color:lightcyan;
-    padding: 5px;
-    margin:10px;
+    padding: 2px;
+    margin:5px;
     
 }
 body{
@@ -58,8 +58,11 @@ body{
 }
 .rest-pic{
     align-items: center;
-padding: 5px 75px;
+padding: 5px;
 height: 200px;
-width:250px;
+width:330px;
 align-content: center;
+}
+.filter{
+    margin: 20px;
 }

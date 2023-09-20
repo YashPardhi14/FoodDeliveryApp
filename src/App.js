@@ -1,25 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import restaurantList from './RestaurantInfo'
 
-const Headers=()=>{
-    return<div className="header">
-<div className='logo-container'>
-<img className='logo' src='https://png.pngtree.com/template/20200610/ourmid/pngtree-food-delivery-logo-design-image_381319.jpg'/>
+import Headers from './Components/Header'
+import Body from './Components/Body'
 
-</div>
-<div className='nav-items'>
-    <ul>
 
-        <li>Home</li>
-        <li>About Us</li>
-        <li>Contact us</li>
-        <li>Cart</li>
-    </ul>
-</div>
-
-    </div>
-}
 
 // const restaurantList=[
 //     {
@@ -1046,44 +1031,8 @@ const Headers=()=>{
 //     ]
 
 
-const RestaurantCard=(props)=>{
-    //destructure..
-    const{restaurantData}=props;
 
-    //optional chaining....
-    const{
-        name,cuisines,costForTwo,avgRating,sla
-    }=restaurantData?.info;
-    return (
-        <div className='restaurant-card'>
-        <img className='rest-pic' alt='rest-logo' src={'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/'+restaurantData.info.cloudinaryImageId}/>
-            <h3>{name}</h3>
-            <h5>{cuisines.join(',')}</h5>
-            <h4>{costForTwo}</h4>
-            <h4>{avgRating} star</h4>
-            <h4>{sla.deliveryTime} minutes</h4>
-        </div>
-    )
-}
-const Body=()=>{
-    return (
-     <div className="body">
-     <div className="search">
-     <h3>Seacrh</h3>
-     </div>
-     <div className='reastaurant-container'>
 
-     {restaurantList.map((restaurant, index) => (
-          <RestaurantCard key={restaurant.info.id} restaurantData={restaurant}/>
-     ))}
-   
-
-       
-     </div>
-
-     </div>   
-    )
-}
 const AppLayout=()=>{
 return <div className="app">
     <Headers/>
