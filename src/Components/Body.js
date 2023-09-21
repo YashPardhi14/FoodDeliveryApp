@@ -1,71 +1,80 @@
-import { useState } from "react";
-import restaurantList from "../utils/mockData";
+import { useEffect, useState } from "react";
+//import restaurantList from "../utils/mockData";
 import RestaurantCard from "./RestaurantCard";
+import Shimmer from "./Shimmer";
+import {API_URL} from '../utils/constants';
+
 
 
 
 
 
 const Body=()=>{
-   let newList =[
-   { "info": {
-        "id": "55051",
-        "name": "Reddy's ",
-        "cloudinaryImageId": "fogfnatzbqcn5nytgb7e",
-        "locality": "Laxminagar",
-        "areaName": "Dharampeth",
-        "costForTwo": "₹140 for two",
-        "cuisines": [
-        "South Indian",
-        "Beverages"
-        ],
-        "avgRating": 4.6}},
-        { "info": {
-            "id": "55052",
-            "name": " Gokul",
-            "cloudinaryImageId": "fogfnatzbqcn5nytgb7e",
-            "locality": "Laxminagar",
-            "areaName": "Dharampeth",
-            "costForTwo": "₹350 for two",
-            "cuisines": [
-            "South Indian",
-            "Beverages"
-            ],
-            "avgRating": 4.2}},
-            { "info": {
-                "id": "55053",
-                "name": " Brindavan ",
-                "cloudinaryImageId": "fogfnatzbqcn5nytgb7e",
-                "locality": "Laxminagar",
-                "areaName": "Dharampeth",
-                "costForTwo": "₹650 for two",
-                "cuisines": [
-                "South Indian",
-                "Beverages"
-                ],
-                "avgRating": 3.6}},
-                { "info": {
-                    "id": "55054",
-                    "name": " Restaurant",
-                    "cloudinaryImageId": "fogfnatzbqcn5nytgb7e",
-                    "locality": "Laxminagar",
-                    "areaName": "Dharampeth",
-                    "costForTwo": "₹950 for two",
-                    "cuisines": [
-                    "South Indian",
-                    "Beverages"
-                    ],
-                    "avgRating": 1.6}}
-    
-   ]
-    const[restList,updateRestList]=useState(restaurantList);
+
+
+    //Array destructuring....
+    const[restList,updateRestList]=useState([]);
+    const[filterRestList,updateFilterRestList]=useState([]);
+    const[searchText,setSearchText]=useState("");
+    //retuns the array..1->state variable and 2->function to update the state variable
+//console.log(useState(restaurantList));
+
+// console.table(restList);
+
+//other way to write the useState line...
+              //One-Way
+  //  const arr=useState(restaurantList);
+ // const[restList,updateRestList]=arr;
+            //second way
+
+ //   const arr=useState(restaurantList);
+ //    const restList=arr[0];
+ //    const updateRestList=arr[1];
    
-    return (
+
+// console.log("Body Rendering");
+
+
+ //useEffect()
+
+ useEffect(()=>{
+    fetchData();
+ },[]);
+
+ const fetchData = async ()=>{
+    const data = await fetch(API_URL);
+    const json =await data.json();
+
+    //optional chaining...
+    updateRestList(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    updateFilterRestList(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+  console.log(json);
+}
+
+
+//Conditional Rendering...
+
+return restList.length==0 ?(<Shimmer/>) :  (
      <div className="body">
-     {/* <div className="search">
-     <h3>Seacrh</h3>
-     </div> */}
+     
      <div className="filter">
+     <div className="search">
+     <input type='text' className="search-box" value={searchText} 
+     onChange={(e)=>{
+        setSearchText(e.target.value);
+     }}
+     ></input>
+     <button className="search-btn"
+    onClick={
+        ()=>{
+            const filterRestList=restList.filter(
+                (res)=> res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                );
+                updateFilterRestList(filterRestList);
+        }
+    }
+     >Search</button>
+     </div>
      <button className="filter-btn" onClick={()=>{
 
  let newRestList=restList.filter((res)=>res.info.avgRating >4);
@@ -79,8 +88,8 @@ const Body=()=>{
 
      </div>
      <div className='reastaurant-container'>
-
-     {restList.map((restaurant, index) => (
+  
+     {filterRestList.map((restaurant, index) => (
           <RestaurantCard key={restaurant.info.id} restaurantData={restaurant}/>
      ))}
    
@@ -92,3 +101,4 @@ const Body=()=>{
     )
 }
 export default Body;
+////using filterRestList to enable seacrh functionality...
