@@ -26,6 +26,12 @@ h5{
 
 .nav-items{
 padding-top: 20px;
+
+}
+.nav-item-list{
+   
+    text-decoration: none;
+    color: inherit;
 }
 
 .nav-items > ul{
@@ -33,11 +39,13 @@ padding-top: 20px;
     list-style-type: none;
     padding: 10px 20px;
     font-size: 20px;
+   
 }
 
 .nav-items > ul>li{
     padding: 50px;
     margin: 10px;
+   
 }
 .login{
     padding: 20px 20px;
@@ -73,6 +81,11 @@ body{
     display: flex;
     flex-wrap: wrap;
     margin: 20px;
+    
+}
+.restaurant-card-link{
+    text-decoration: none;
+    color: inherit;
 }
 .restaurant-card:hover{
     border:1px solid whitesmoke;
@@ -80,10 +93,11 @@ body{
 }
 .rest-pic{
     align-items: center;
-padding: 5px;
+padding: 10px;
 height: 200px;
 width:330px;
 align-content: center;
+border-radius: 20px;
 }
 .filter{
     margin: 10px;
@@ -106,3 +120,7 @@ flex-wrap: wrap;
     border-radius: 16px;
    background-color:  #D4D4D4;
 }
+
+
+
+

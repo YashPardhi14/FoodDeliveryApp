@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import {API_URL} from '../utils/constants';
+import { Link } from "react-router-dom";
 
 
 
@@ -78,7 +79,7 @@ return restList.length==0 ?(<Shimmer/>) :  (
      <button className="filter-btn" onClick={()=>{
 
  let newRestList=restList.filter((res)=>res.info.avgRating >4);
- updateRestList(newRestList);
+ updateFilterRestList(newRestList);
 
      
 
@@ -90,7 +91,7 @@ return restList.length==0 ?(<Shimmer/>) :  (
      <div className='reastaurant-container'>
   
      {filterRestList.map((restaurant, index) => (
-          <RestaurantCard key={restaurant.info.id} restaurantData={restaurant}/>
+      <Link key={restaurant.info.id} to={'/restaurants/'+restaurant.info.id} className='restaurant-card-link'> <RestaurantCard  restaurantData={restaurant}/></Link>   
      ))}
    
 
