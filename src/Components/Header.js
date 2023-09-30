@@ -13,13 +13,14 @@ const [btnNameReact,setBtnNameReact]=useState("LogIn");
 //2.empty DA==>called on initial render
 //3.non-empty DA==>called only when the depedency changes
 useEffect(()=>{
-    console.log("useEffect is called..");
+    //console.log("useEffect is called..");
 },[btnNameReact])
 
 
     return<div className="header">
 <div className='logo-container'>
-<img className='logo' src={LOGO_URL}/>
+<Link to='/'><img className='logo' src={LOGO_URL}/></Link>
+
 
 </div>
 <div className='nav-items'>

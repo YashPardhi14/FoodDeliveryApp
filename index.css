@@ -120,6 +120,27 @@ flex-wrap: wrap;
     border-radius: 16px;
    background-color:  #D4D4D4;
 }
+.user-card{
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+    background-color:#EEEEEE;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.img{
+    border-radius:30px;
+    width:500px;
+    height:450px;
+    
+}
+.user-info{
+    margin-left: 500px;
+
+    margin-top: 200px;
+}
 
 
 
