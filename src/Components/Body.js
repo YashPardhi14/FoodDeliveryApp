@@ -4,6 +4,7 @@ import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import {API_URL} from '../utils/constants';
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 
 
@@ -47,12 +48,21 @@ const Body=()=>{
     const json =await data.json();
 
     //optional chaining...
+    
     updateRestList(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     updateFilterRestList(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-  console.log(json);
+ 
 }
+//checking the network connection status...
 
+const status=useOnlineStatus();
 
+if(status==false) 
+return (
+<h1>404: User Teleported to Another Dimension 🚀</h1>
+);
+
+console.log(restList);
 //Conditional Rendering...
 
 return restList.length==0 ?(<Shimmer/>) :  (
@@ -83,9 +93,7 @@ return restList.length==0 ?(<Shimmer/>) :  (
 
      
 
-
-      
-     }}>click to see the top rated restaurant</button>
+}}>click to see the top rated restaurant</button>
 
      </div>
      <div className='reastaurant-container'>

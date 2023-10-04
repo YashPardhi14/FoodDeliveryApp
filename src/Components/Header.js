@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 
 
@@ -16,6 +17,7 @@ useEffect(()=>{
     //console.log("useEffect is called..");
 },[btnNameReact])
 
+const onlineStatus = useOnlineStatus();
 
     return<div className="header">
 <div className='logo-container'>
@@ -25,17 +27,19 @@ useEffect(()=>{
 </div>
 <div className='nav-items'>
     <ul>
-
+  <li> Network Connection: {onlineStatus?'✅' :'❌'}</li>
         <li ><Link to='/' className='nav-item-list'>Home</Link></li>
         <li><Link to='/about' className='nav-item-list'>About Us</Link></li>
         <li><Link to='/contact' className='nav-item-list'>Contact us</Link></li>
         <li><Link to='/cart' className='nav-item-list'>Cart</Link></li>
+        <li><Link to='/grocery' className="nav-item-list">Grocery</Link></li>
         <button className="login" 
         onClick={()=>{
             //ternary operator....
            btnNameReact==="LogOut"?setBtnNameReact("LogIn"):setBtnNameReact("LogOut")
         }}
         >{btnNameReact}</button>
+       
     </ul>
 </div>
 
