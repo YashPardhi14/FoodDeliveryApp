@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 //import restaurantList from "../utils/mockData";
 import RestaurantCard, { withVegLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import {API_URL} from '../utils/constants';
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 
 
@@ -20,6 +21,7 @@ const Body=()=>{
     const[searchText,setSearchText]=useState("");
 
     const RestaurantCardVeg =withVegLabel(RestaurantCard);
+    const{setUserName,loggedInUser}=useContext(UserContext);
     //retuns the array..1->state variable and 2->function to update the state variable
 //console.log(useState(restaurantList));
 
@@ -72,12 +74,12 @@ return restList.length==0 ?(<Shimmer/>) :  (
      
      <div className="filter flex">
      <div className="search">
-     <input type='text' className='border-black m-4' placeholder="name of the hotel" value={searchText} 
+     <input type='text' className='border-black m-4' placeholder="name of the restaurant" value={searchText} 
      onChange={(e)=>{
         setSearchText(e.target.value);
      }}
      ></input>
-     <button className="m-4 px-2 bg-blue-400 text-cyan-50 py-2 rounded-lg"
+     <button className="m-4 px-2 bg-blue-400 text-cyan-50 py-2 rounded-lg hover:bg-blue-800"
     onClick={
         ()=>{
             const filterRestList=restList.filter(
@@ -88,7 +90,7 @@ return restList.length==0 ?(<Shimmer/>) :  (
     }
      >Search</button>
      </div>
-     <button className="m-4 px-2 bg-purple-500 text-white rounded-lg" onClick={()=>{
+     <button className="m-4 px-2 bg-purple-500 text-white rounded-lg hover:bg-purple-900" onClick={()=>{
 
  let newRestList=restList.filter((res)=>res.info.avgRating >4);
  updateFilterRestList(newRestList);
@@ -96,6 +98,15 @@ return restList.length==0 ?(<Shimmer/>) :  (
      
 
 }}>click to see the top rated restaurant</button>
+<div className="m-5 px-2 hover:bg-red-300">
+<label>User Name: </label>
+<input className="border-black  w-auto hover:border-yellow-600" 
+placeholder="enter the name to change the context"
+onChange={(e)=>setUserName(e.target.value)}
+
+/>
+</div>
+
 
      </div>
      <div className='reastaurant-container flex flex-wrap'>

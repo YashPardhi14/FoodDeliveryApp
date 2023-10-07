@@ -1,33 +1,38 @@
 import React from 'react'
 import UserClass from './UserClass'
 import User from './User'
+import UserContext from '../utils/UserContext';
 
 
 class About extends React.Component{
 
   constructor(props){
-   console.log('Parent constructor ');
+   //console.log('Parent constructor ');
     super(props);
 
   }
 
 
 componentDidMount(){
-console.log('Parent component Did Mount');
+//console.log('Parent component Did Mount');
 }
 componentDidUpdate(){
-  console.log('Parent component did update');
+ // console.log('Parent component did update');
 }
 componentWillUnmount(){
-  console.log('Parent component will unmount');
+  //console.log('Parent component will unmount');
 }
 
 render(){
-console.log('Parent render');
+//console.log('Parent render');
 
   return (
     <div>
+{/** LoggedInUser */ }
 
+<UserContext.Consumer>
+  {({loggedInUser})=>{ return(<h2 className='text-center font-medium text-red-500'>Developer Name: {loggedInUser}</h2>)}}
+</UserContext.Consumer>
 <h2 style={{textAlign:'center'}}>About Us!</h2><br/>
     <h3 style={{textAlign:'center'}}>Welcome To <span id="W_Name1">FoodieFleet</span></h3>
     <p><span id="W_Name2">FoodieFleet</span> is a Professional <span id="W_Type1">food delivery</span> 

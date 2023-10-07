@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { CDN_URL } from "../utils/constants";
+import UserContext from "../utils/UserContext";
 
 
 
 const RestaurantCard=(props)=>{
     //destructure..
     const{restaurantData}=props;
+    const {loggedInUser}=useContext(UserContext);
 
     //optional chaining....
     const{
@@ -18,6 +21,7 @@ const RestaurantCard=(props)=>{
             <h4>{costForTwo}</h4>
             <h4>{avgRating} star</h4>
             <h4>{sla.deliveryTime} minutes</h4>
+            <h4 className="font-extrabold">User Name : {loggedInUser}</h4>
         </div>
     )
 }

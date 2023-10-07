@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 
 
@@ -9,6 +10,8 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 const Headers=()=>{
 
 const [btnNameReact,setBtnNameReact]=useState("LogIn");
+
+
 ///////when useEffect is Called...
 //1.no DA==>called on every render
 //2.empty DA==>called on initial render
@@ -18,6 +21,12 @@ useEffect(()=>{
 },[btnNameReact])
 
 const onlineStatus = useOnlineStatus();
+ 
+//const userName=useContext(UserContext);
+
+//console.log(userName); returns the object..
+
+const {loggedInUser}=useContext(UserContext);
 
     return <div className="flex justify-between bg-stone-200 shadow-lg m-5 px-2 sm:bg-yellow-100 lg:bg-pink-300 rounded-lg">
 <div className=''>
@@ -39,6 +48,7 @@ const onlineStatus = useOnlineStatus();
            btnNameReact==="LogOut"?setBtnNameReact("LogIn"):setBtnNameReact("LogOut")
         }}
         >{btnNameReact}</button>
+        <li className="m-1 px-4 font-semibold">{loggedInUser}</li>
        
     </ul>
 </div>
