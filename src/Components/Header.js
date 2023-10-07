@@ -19,21 +19,21 @@ useEffect(()=>{
 
 const onlineStatus = useOnlineStatus();
 
-    return<div className="header">
-<div className='logo-container'>
-<Link to='/'><img className='logo' src={LOGO_URL}/></Link>
+    return <div className="flex justify-between bg-stone-200 shadow-lg m-5 px-2 sm:bg-yellow-100 lg:bg-pink-300 rounded-lg">
+<div className=''>
+<Link to='/'><img className='w-40 my-2' src={LOGO_URL}/></Link>
 
 
 </div>
-<div className='nav-items'>
-    <ul>
-  <li> Network Connection: {onlineStatus?'✅' :'❌'}</li>
-        <li ><Link to='/' className='nav-item-list'>Home</Link></li>
-        <li><Link to='/about' className='nav-item-list'>About Us</Link></li>
-        <li><Link to='/contact' className='nav-item-list'>Contact us</Link></li>
-        <li><Link to='/cart' className='nav-item-list'>Cart</Link></li>
-        <li><Link to='/grocery' className="nav-item-list">Grocery</Link></li>
-        <button className="login" 
+<div className="flex items-center">
+    <ul className="flex">
+  <li className="m-1 px-4"> Network Connection: {onlineStatus?'✅' :'❌'}</li>
+        <li className="m-1 px-4"><Link to='/' >Home</Link></li>
+        <li className="m-1 px-4"><Link to='/about' >About Us</Link></li>
+        <li className="m-1 px-4"><Link to='/contact' >Contact us</Link></li>
+        <li className="m-1 px-4"><Link to='/cart' >Cart</Link></li>
+        <li className="m-1 px-4"><Link to='/grocery'>Grocery</Link></li>
+        <button className="m-1 px-4" 
         onClick={()=>{
             //ternary operator....
            btnNameReact==="LogOut"?setBtnNameReact("LogIn"):setBtnNameReact("LogOut")

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 //import restaurantList from "../utils/mockData";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withVegLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import {API_URL} from '../utils/constants';
 import { Link } from "react-router-dom";
@@ -18,6 +18,8 @@ const Body=()=>{
     const[restList,updateRestList]=useState([]);
     const[filterRestList,updateFilterRestList]=useState([]);
     const[searchText,setSearchText]=useState("");
+
+    const RestaurantCardVeg =withVegLabel(RestaurantCard);
     //retuns the array..1->state variable and 2->function to update the state variable
 //console.log(useState(restaurantList));
 
@@ -62,20 +64,20 @@ return (
 <h1>404: User Teleported to Another Dimension 🚀</h1>
 );
 
-console.log(restList);
+// console.log(restList);
 //Conditional Rendering...
 
 return restList.length==0 ?(<Shimmer/>) :  (
-     <div className="body">
+     <div className="bg-zinc-100 rounded-lg">
      
-     <div className="filter">
+     <div className="filter flex">
      <div className="search">
-     <input type='text' className="search-box" value={searchText} 
+     <input type='text' className='border-black m-4' placeholder="name of the hotel" value={searchText} 
      onChange={(e)=>{
         setSearchText(e.target.value);
      }}
      ></input>
-     <button className="search-btn"
+     <button className="m-4 px-2 bg-blue-400 text-cyan-50 py-2 rounded-lg"
     onClick={
         ()=>{
             const filterRestList=restList.filter(
@@ -86,7 +88,7 @@ return restList.length==0 ?(<Shimmer/>) :  (
     }
      >Search</button>
      </div>
-     <button className="filter-btn" onClick={()=>{
+     <button className="m-4 px-2 bg-purple-500 text-white rounded-lg" onClick={()=>{
 
  let newRestList=restList.filter((res)=>res.info.avgRating >4);
  updateFilterRestList(newRestList);
@@ -96,10 +98,12 @@ return restList.length==0 ?(<Shimmer/>) :  (
 }}>click to see the top rated restaurant</button>
 
      </div>
-     <div className='reastaurant-container'>
+     <div className='reastaurant-container flex flex-wrap'>
   
      {filterRestList.map((restaurant, index) => (
-      <Link key={restaurant.info.id} to={'/restaurants/'+restaurant.info.id} className='restaurant-card-link'> <RestaurantCard  restaurantData={restaurant}/></Link>   
+      <Link key={restaurant.info.id} to={'/restaurants/'+restaurant.info.id} className='restaurant-card-link'>
+      {restaurant.info.veg?<RestaurantCardVeg restaurantData={restaurant}/>: <RestaurantCard  restaurantData={restaurant}/>} 
+     </Link>   
      ))}
    
 

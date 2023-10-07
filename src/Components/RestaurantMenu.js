@@ -3,12 +3,13 @@ import ShimmerMenu from "./ShimmerMenu";
 import { useParams } from "react-router-dom";
 
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 
 
 
 const RestaurantMenu = ()=>{
-
+const[showIndex,setShowIndex]=useState(null)
   
 const {restId}=useParams();
 
@@ -21,6 +22,7 @@ const restInfo=useRestaurantMenu(restId);
     
  const {name,costForTwoMessage,cuisines,id} =restInfo?.cards[0]?.card?.card?.info;
 
+
 let itemCard=null;
 
 if(id==54604){
@@ -30,28 +32,43 @@ if(id==54604){
      itemCard=restInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards;  
 }
 
+ //console.log(restInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
 
+ const categories = restInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((cards)=>{
+return cards?.card?.card?.['@type'] == "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+
+ }
+    
+ )
 
 
     return (
         
-        <div>
-            <h1>{name}</h1>
-          <h2>{costForTwoMessage}</h2>
+        <div className="text-center">
+       
+            <h1 className="font-bold mt-10 text-lg">{name}</h1>
+         <p className="font-medium">{cuisines.join(',')}</p>
+          
+          <h2 className="font-semibold">{costForTwoMessage}</h2>
             
-           
-        <h2>{cuisines.join(',')}</h2>
+           {/* categories accordian... */}
+
+          { 
+            categories.map((category,index)=>{
+
+            return <RestaurantCategory key={category?.card?.card?.title} 
+            data={category?.card?.card} 
+            showItems={index==showIndex ?true :false} 
+            setShowIndex={()=>{setShowIndex(index)}}
+
+            />
+            
+ 
+    })
+          }
+       
         
-        <h1>Menu</h1>
-       <ul>
-    {itemCard.map((item)=>(
-        <li key={item.card.info.id}>{item.card.info.name+"  ==> ₹ "} {item.card.info.price/100  || item.card.info.finalPrice/100} </li>
-    ))}
-</ul> 
-
-
-
-
+    
         </div>
     )
 }
