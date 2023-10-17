@@ -3,6 +3,7 @@ import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 
 
@@ -27,6 +28,7 @@ const onlineStatus = useOnlineStatus();
 //console.log(userName); returns the object..
 
 const {loggedInUser}=useContext(UserContext);
+const cartItems =useSelector((store)=>store.cart.items);
 
     return <div className="flex justify-between bg-stone-200 shadow-lg m-5 px-2 sm:bg-yellow-100 lg:bg-pink-300 rounded-lg">
 <div className=''>
@@ -40,7 +42,7 @@ const {loggedInUser}=useContext(UserContext);
         <li className="m-1 px-4"><Link to='/' >Home</Link></li>
         <li className="m-1 px-4"><Link to='/about' >About Us</Link></li>
         <li className="m-1 px-4"><Link to='/contact' >Contact us</Link></li>
-        <li className="m-1 px-4"><Link to='/cart' >Cart</Link></li>
+        <li className="m-1 px-4"><Link to='/cart' >Cart ({cartItems.length} items)</Link></li>
         <li className="m-1 px-4"><Link to='/grocery'>Grocery</Link></li>
         <button className="m-1 px-4" 
         onClick={()=>{

@@ -11,6 +11,9 @@ import Cart from './Components/Cart'
 import RestaurantMenu from './Components/RestaurantMenu'
 import UserContext from './utils/UserContext'
 import User from './Components/User'
+import { Provider } from 'react-redux'
+import appStore from './utils/appStore'
+
 //import Grocery from './Components/Grocery'
 
 
@@ -1053,6 +1056,9 @@ useEffect(()=>{
     setUserName(data.name);
 },[])
     return(
+        <Provider store={appStore}>
+
+       
         <UserContext.Provider value={{loggedInUser:userName,setUserName}}>
         <div className="app">
           
@@ -1068,7 +1074,7 @@ useEffect(()=>{
          
        </div>
        </UserContext.Provider>
-         
+       </Provider> 
            
     )
    
